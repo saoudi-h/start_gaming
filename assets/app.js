@@ -7,9 +7,16 @@
 
 // any CSS you import will output into a single css file (app.css in this case)
 // import './styles/app.css';
+
+
 import './styles/app.scss';
+import './scripts/script';
 require('bootstrap');
 // start the Stimulus application
 import './bootstrap';
+import { registerVueControllerComponents } from '@symfony/ux-vue';
+// registerVueControllerComponents(require.context('./vue/controllers', true, /\\.(j|t)sx?$/));
+registerVueControllerComponents(require.context('./vue/controllers', true, /.vue$/));
 
-import './scripts/script';
+require('@fortawesome/fontawesome-free/css/all.min.css');
+require('@fortawesome/fontawesome-free/js/all.js');

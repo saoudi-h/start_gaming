@@ -4,6 +4,12 @@
 
 {% block body %}
 <div>
+
+<div class="card text-white bg-black mb-3" style="max-width: 20rem;">
+    <div class="card-body">
+        <div {{ vue_component('MyComponent', { 'name': 'toto' }) }}></div>
+    </div>
+</div>
     home
 </div>
 {% endblock %}

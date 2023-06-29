@@ -9,6 +9,7 @@
     "@symfony/ux-vue": "file:vendor/symfony/ux-vue/assets",
     "@symfony/webpack-encore": "^4.0.0",
     "bootstrap": "^5.3.0",
+    "bootswatch": "^5.3.0",
     "core-js": "^3.23.0",
     "jquery": "^3.7.0",
     "regenerator-runtime": "^0.13.9",
@@ -27,5 +28,8 @@
     "dev": "encore dev",
     "watch": "encore dev --watch",
     "build": "encore production --progress"
+  },
+  "dependencies": {
+    "@fortawesome/fontawesome-free": "^6.4.0"
   }
 }
