@@ -1,4 +1,27 @@
 
+
+*****************************************************
+********* Requirements  ****
+*****************************************************
+
+PHP >= 8.1
+
+MySql
+
+npm
+
+composer
+https://getcomposer.org/download/
+
+Symfony Cli
+https://scoop.sh/
+https://symfony.com/download
+
+
+
+
+
+
 *****************************************************
 ********* installation de l'application de Base  ****
 *****************************************************
@@ -64,14 +87,14 @@ admin:  admin1  pass
 *********  Création from SCRATH   **********************************
 *********************************************************************
 
-symfony new my_project_directory --version="6.2.*" --webapp
+symfony new m2i_shop_square_farnoosh --version="6.3.*" --webapp
 
 
 
 *************************************
 .env.local
 
-DATABASE_URL="mysql://root:@127.0.0.1:3306/m2i_shop_square?serverVersion=8.0.32&charset=utf8mb4"
+DATABASE_URL="mysql://root:@127.0.0.1:3306/m2i_shop_square_farnoosh?serverVersion=8.0.32&charset=utf8mb4"
 php bin/console doctrine:database:create 
 
 
@@ -153,7 +176,11 @@ export default function(name) {
 
 import greet from './greet';
 
-alert(greet)
+alert(greet())
+
+XXXXXX RECTIFIER XXXXX
+alert(greet('Zidane'))
+
 
 
 
@@ -166,6 +193,15 @@ composer require symfony/ux-vue
 
 npm install -D vue-loader --force
 
+
+// assets/app.js
+import { registerVueControllerComponents } from '@symfony/ux-vue';
+
+registerVueControllerComponents(require.context('./vue/controllers', true, /\.vue$/));
+
+
+
+
 // assets/vue/controllers/MyComponent.vue
 <template>
     <div>Hello {{ name }}!</div>
@@ -177,15 +213,23 @@ npm install -D vue-loader --force
     });
 </script>
 
+
+
+
+
+
 {# templates/home.html.twig #}
 <div class="card text-white bg-dark mb-3" style="max-width: 20rem;">
     <div class="card-body">
-        <div {{ vue_component('MyComponent', { 'name': 'toto' }) }}></div>
+        <div {{ vue_component('MyComponent', { 'name': 'Zizoo' }) }}></div>
     </div>
 </div>
 
+
+
 npm run build
 npm run watch
+
 
 
 
@@ -196,29 +240,8 @@ npm run watch
 npm i bootswatch --save-dev
 
 app.scss :
-@import "~bootswatch/dist/superhero/_variables";
+@import "~bootswatch/dist/zephyr/_variables";
 
-
-
-
-
-*************************************
-npm install jquery --save-dev
-
-app.js:
-import $ from 'jquery';
-
-$('body').prepend('<h1>'+'Titi'+'</h1>');
-
-
-
-
-
-*************************************
-.enableSassLoader()
-npm install sass-loader@^13.0.0 sass --save-dev
-
-npm install jquery @popperjs/core --save-dev
 
 
 
@@ -232,6 +255,7 @@ app.js :
 require('@fortawesome/fontawesome-free/css/all.min.css');
 require('@fortawesome/fontawesome-free/js/all.js');
 
+<i class="fa-solid fa-house"></i>
 
 
 
@@ -249,19 +273,30 @@ php bin/console doctrine:migrations:migrate
 
 
 *************************************
-composer require symfonycasts/verify-email-bundle
-php bin/console make:registration-form
 
+// add this in the security.yaml file :
 
+    role_hierarchy:
+        ROLE_ADMIN: [ROLE_USER]
 
-
-*************************************
-composer require --dev symfony/profiler-pack
 
 
 
 
 *************************************
+composer require --dev orm-fixtures
+
+UserFixtures.php
+
+php bin/console doctrine:fixtures:load
+
+
+
+
+
+
+*************************************
+login :
 https://symfony.com/doc/current/security.html#form-login
 
 php bin/console make:controller Login
@@ -270,21 +305,67 @@ php bin/console make:controller Login
 
 
 *************************************
+logout :
 https://symfony.com/doc/current/security.html#logging-out
 
 
+    logout:
+        path: app_logout
+        target: app_public_homepage
+
+
+
 
 
 
 
 *************************************
-make:entity Product
+php bin/console make:controller UserHomepage
+php bin/console make:controller AdminHomepage
+
+navbar
 
 
 
 
 *************************************
-composer require --dev orm-fixtures
+access_control
+
+
+
+
+
+*************************************
+php bin/console make:entity Product
+
+name            string
+description     text
+price           float
+photo           string
+
+php bin/console make:migration
+php bin/console doctrine:migration:migrate
+
+
+
+
+
+*************************************
+composer require --dev fakerphp/faker
+
+https://github.com/FakerPHP/Faker
+
+docs :
+https://github.com/fzaninotto/Faker
+
+
+
+
+
+
+*************************************
+ProductFixtures.php
+
 php bin/console doctrine:fixtures:load
 
 
@@ -298,19 +379,43 @@ composer require annotations
 
 
 *************************************
-make:crud Product
+php bin/console make:crud Product
 
 
 
 
 *************************************
-make:entity Commande
+Product in navbar + photo
 
 
 
 
 *************************************
-make:entity CommandeProduct
+php bin/console make:entity Commande
+
+createdAt   DateTime
+user        User
+
+php bin/console make:migration
+php bin/console doctrine:migration:migrate
+
+
+
+
+
+
+*************************************
+php bin/console make:entity CommandeProduct
+
+quantity    integer
+product     Product
+commande    Commande
+
+php bin/console make:migration
+php bin/console doctrine:migration:migrate
+
+
+
 
 
 
@@ -319,10 +424,16 @@ Commande Fixtures
 
 
 
-*************************************
-php bin/console make:crud
-Commande
 
+
+*************************************
+php bin/console make:crud Commande
+
+
+
+
+*************************************
+CommandeType : User
 
 
 
