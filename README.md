@@ -144,9 +144,6 @@ require('bootstrap');
 
 
 
-*************************************
-npm install @popperjs/core --save-dev
-
 
 
 *************************************
@@ -161,7 +158,7 @@ webpack.config.js :
 .autoProvidejQuery()
 
 npm run build
-npm run watch
+
 
 
 
@@ -169,17 +166,14 @@ npm run watch
 *************************************
 Requiring JavaScript Modules :
 
-// assets/greet.js
+// assets/scripts/greet.js
 export default function(name) {
     return `Yo yo ${name} - welcome to Encore!`;
 };
 
 import greet from './greet';
 
-alert(greet())
-
-XXXXXX RECTIFIER XXXXX
-alert(greet('Zidane'))
+alert(greet('Les Gens'))
 
 
 
@@ -393,7 +387,7 @@ Product in navbar + photo
 *************************************
 php bin/console make:entity Commande
 
-createdAt   DateTime
+createdAt   datetime
 user        User
 
 php bin/console make:migration
@@ -422,6 +416,7 @@ php bin/console doctrine:migration:migrate
 *************************************
 Commande Fixtures
 
+php bin/console doctrine:fixtures:load
 
 
 
