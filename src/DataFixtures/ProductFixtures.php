@@ -19,6 +19,7 @@ class ProductFixtures extends Fixture
 
     private function loadProducts(ObjectManager $manager): void
     {
+        $i = 1;
         foreach ($this->getProductData() as [$photo]) {
             $product = new Product();
 
@@ -27,9 +28,10 @@ class ProductFixtures extends Fixture
             $product->setDescription($this->faker->paragraph($nbSentences = 5, $variableNbSentences = true));
             $product->setPrice($this->faker->randomFloat($nbMaxDecimals = 2, $min = 10, $max = 500));
             $product->setPhoto($photo);
+            $this->addReference('product_'.$i, $product);
 
             $manager->persist($product);
-
+            $i++;
         }
 
         $manager->flush();
@@ -70,3 +72,5 @@ class ProductFixtures extends Fixture
 
 
 }
+
+

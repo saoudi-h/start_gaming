@@ -22,11 +22,17 @@ class UserFixtures extends Fixture
 
     private function loadUsers(ObjectManager $manager): void
     {
+        $i = 1;
         foreach ($this->getUserData() as [$password, $email, $roles]) {
             $user = new User();
             $user->setPassword($this->passwordHasher->hashPassword($user, $password));
             $user->setEmail($email);
             $user->setRoles($roles);
+
+            if (in_array('ROLE_USER', $roles)) {
+                $this->addReference('user_' . $i, $user);
+                $i++;
+            }
 
             $manager->persist($user);
         }
